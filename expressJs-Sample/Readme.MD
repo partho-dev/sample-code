@@ -1,0 +1,5 @@
+- Clone the code
+- go to the project directory - `cd expressJs-Sample`
+- execute this command to install the dependancies - `npm install`
+- To run the project - `npm run dev` or `npm start`
+- Open browser and type - `http://localhost:3000/`
