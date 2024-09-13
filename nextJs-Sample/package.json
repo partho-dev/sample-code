@@ -1,0 +1,36 @@
+{
+  "name": "nextjs-helloworld",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test:unit": "jest",
+    "test:e2e": "cypress open",
+    "test:e2e:hl": "cypress run",
+    "test:complete": "jest && cypress run"
+  },
+  "dependencies": {
+    "next": "14.2.8",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.25.4",
+    "@babel/preset-react": "^7.24.7",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@types/react": "^18.3.5",
+    "autoprefixer": "^10.4.20",
+    "babel-jest": "^29.7.0",
+    "cypress": "^13.14.2",
+    "cypress-plugin-tab": "^1.0.5",
+    "cypress-real-events": "^1.13.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "postcss": "^8.4.45",
+    "tailwindcss": "^3.4.10"
+  }
+}

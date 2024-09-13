@@ -1,0 +1,1 @@
+import '@testing-library/jest-dom'; // Optional: Enhances Testing Library's assertions
