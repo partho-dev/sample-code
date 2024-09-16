@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: nextjs-container
-        image: 54.175.95.188:8092/nextjs-sample:22
+        image: 54.175.95.188:8092/nextjs-sample:23
         ports:
         - containerPort: 3000
 ---
