@@ -13,6 +13,8 @@ pipeline {
         DOCKER_REPO = 'http://54.175.95.188:8092'
         // DOCKER_CREDENTIALS_ID = 'nexus-docker-creds'
         NEXUS_CREDENTIAL_ID = "jenkins-user-on-nexus"
+        GIT_CREDENTIAL_ID = "git-credentials"  // Add your Git credentials here
+        DEPLOYMENT_YAML_PATH = 'nextJs-Sample/k8s/argotest/deployment-nexus-docker-repo.yaml'
     }
     stages {
         stage('Checkout') {
@@ -99,10 +101,34 @@ pipeline {
                 }
             }
         }
+        stage('Update Kubernetes Deployment YAML') {
+            steps {
+                echo "<=======Updating the Kubernetes Deployment YAML with the new Docker image tag===========>"
+                script {
+                    // Read the deployment YAML file
+                    def deploymentYaml = readFile(env.DEPLOYMENT_YAML_PATH)
+                    
+                    // Replace the image tag with the new one (assuming simple YAML structure)
+                    deploymentYaml = deploymentYaml.replaceFirst(/image: 54.175.95.188:8092\/nextjs-sample:\d+/, "image: 54.175.95.188:8092/nextjs-sample:${env.BUILD_ID}")
+                    
+                    // Write the updated YAML file back
+                    writeFile file: env.DEPLOYMENT_YAML_PATH, text: deploymentYaml
+
+                    // Commit the updated deployment YAML to the Git repository
+                    sh '''
+                        git config user.email "jenkins@example.com"
+                        git config user.name "Jenkins CI"
+                        git add ${DEPLOYMENT_YAML_PATH}
+                        git commit -m "Update Kubernetes deployment with new Docker image: nextjs-sample:${env.BUILD_ID}"
+                        git push origin main
+                    '''
+                }
+            }
     }
     post {
         always {
             cleanWs()
         }
     }
+}
 }
